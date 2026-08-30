@@ -3,6 +3,8 @@ import { Archivo } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SanityLive } from "../../sanity/lib/live";
+import { SiteHeader } from "../components/site-header";
+import { StickyBookBar } from "../components/sticky-book-bar";
 
 const archivo = Archivo({
   variable: "--font-body",
@@ -40,7 +42,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${archivo.variable} ${franchise.variable} ${bungee.variable} ${richardsonScript.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <SiteHeader />
         {children}
+        <StickyBookBar />
         <SanityLive />
       </body>
     </html>

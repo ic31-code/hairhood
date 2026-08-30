@@ -63,3 +63,18 @@ body {
   --text-muted: var(--hh-ink-300);
   --text-subtle: var(--hh-ink-400);
 }
+
+.hh-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hh-scroll::-webkit-scrollbar {
+  display: none;
+}
+.hh-back-link {
+  font-family: var(--font-ui), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--hh-ink-300);
+}
