@@ -1,9 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { Testimonial } from "../../sanity/lib/queries";
 
-export function ReviewsCarousel({ reviews }: { reviews: Testimonial[] }) {
+export type Review = {
+  _id: string;
+  quote: string;
+  author: string;
+  rating?: number;
+};
+
+export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -40,6 +46,12 @@ export function ReviewsCarousel({ reviews }: { reviews: Testimonial[] }) {
           className="shrink-0 basis-[78%] border-t border-[var(--hh-brass-500)] pt-4"
           style={{ scrollSnapAlign: "start" }}
         >
+          {r.rating != null && (
+            <div aria-hidden className="mb-1.5 text-xs tracking-[.15em] text-[var(--hh-brass-500)]">
+              {"★".repeat(Math.round(r.rating))}
+              {"☆".repeat(5 - Math.round(r.rating))}
+            </div>
+          )}
           <p className="text-base leading-snug text-white">{r.quote}</p>
           <div className="hh-ui mt-3.5 text-[11px] tracking-[.04em] uppercase text-[var(--hh-ink-300)]">
             {r.author}

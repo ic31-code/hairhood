@@ -93,6 +93,13 @@ export const barber = defineType({
       title: 'Display order',
       type: 'number',
     }),
+    defineField({
+      name: 'squareTeamMemberId',
+      title: 'Square team member ID',
+      type: 'string',
+      description: 'Set automatically by the Square price sync. Do not edit.',
+      readOnly: true,
+    }),
   ],
   orderings: [{ title: 'Display order', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] }],
   preview: {

@@ -63,6 +63,13 @@ export const service = defineType({
       title: 'Display order',
       type: 'number',
     }),
+    defineField({
+      name: 'squareItemId',
+      title: 'Square catalog item ID',
+      type: 'string',
+      description: 'Set automatically by the Square price sync. Do not edit.',
+      readOnly: true,
+    }),
   ],
   orderings: [{ title: 'Display order', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] }],
   preview: {
