@@ -34,6 +34,12 @@ export const siteSettings = defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: 'aboutHeroImage',
+      title: 'About page header image',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
       name: 'aboutIntro',
       title: 'About intro',
       type: 'array',
