@@ -38,6 +38,15 @@ function cleanSquareName(name: string): string {
   return name.replace(/\s*\.\s*$/, "").trim();
 }
 
+// Normalizes for matching only ("&" vs "and", double spaces, case) — never used for display.
+function normalizeForMatch(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export type SquareSyncResult = {
   barbersCreated: number;
   servicesCreated: number;
@@ -107,7 +116,7 @@ export async function syncFromSquare(): Promise<SquareSyncResult> {
   const serviceBySquareId = new Map(
     existingServices.filter((s) => s.squareItemId).map((s) => [s.squareItemId as string, s])
   );
-  const serviceByName = new Map(existingServices.map((s) => [s.name.toLowerCase(), s]));
+  const serviceByName = new Map(existingServices.map((s) => [normalizeForMatch(s.name), s]));
   let nextServiceOrder = existingServices.reduce((max, s) => Math.max(max, s.order ?? 0), 0);
 
   let servicesCreated = 0;
@@ -120,7 +129,7 @@ export async function syncFromSquare(): Promise<SquareSyncResult> {
     const variations = (item.item_data.variations ?? []).filter((v) => !v.is_deleted);
     if (variations.length === 0) continue;
 
-    const existing = serviceBySquareId.get(item.id) ?? serviceByName.get(item.item_data.name.toLowerCase());
+    const existing = serviceBySquareId.get(item.id) ?? serviceByName.get(normalizeForMatch(item.item_data.name));
     const serviceId = existing?._id ?? `service-square-${item.id.toLowerCase()}`;
 
     const prices = variations
