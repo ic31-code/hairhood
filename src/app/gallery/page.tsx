@@ -20,10 +20,7 @@ export default async function GalleryPage() {
     <main>
       <section className="hh-inverse bg-black px-5 pt-7 pb-8">
         <BackLink href="/">← Home</BackLink>
-        <span className="hh-eyebrow mt-4 block" style={{ color: "var(--hh-ink-300)" }}>
-          The work
-        </span>
-        <h1 className="hh-display mt-2 text-[clamp(40px,12vw,56px)] leading-[.88] uppercase text-white">
+        <h1 className="hh-display mt-4 text-[clamp(40px,12vw,56px)] leading-[.88] uppercase text-white">
           Fresh out
           <br />
           the chair

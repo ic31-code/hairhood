@@ -12,8 +12,7 @@ export default async function ContactPage() {
     <main>
       <section className="hh-inverse bg-black px-5 pt-7 pb-8">
         <BackLink href="/">← Home</BackLink>
-        <span className="hh-eyebrow mt-4 block">Get in touch</span>
-        <h1 className="hh-display mt-2 text-[clamp(40px,12vw,56px)] leading-[.88] uppercase text-white">
+        <h1 className="hh-display mt-4 text-[clamp(40px,12vw,56px)] leading-[.88] uppercase text-white">
           Contact &amp; FAQ
         </h1>
       </section>
@@ -37,7 +36,9 @@ export default async function ContactPage() {
       </section>
 
       <section className="bg-[var(--hh-bone-050)] px-5 pt-8 pb-16">
-        <span className="hh-eyebrow">FAQ</span>
+        <h2 className="hh-display text-[clamp(24px,7vw,30px)] leading-[.9] uppercase text-[var(--hh-black)]">
+          FAQ
+        </h2>
         <div className="mt-3 flex flex-col">
           {(faqs ?? []).map((f) => (
             <div key={f._id} className="border-t border-[var(--border-hairline,rgba(0,0,0,.12))] py-4">

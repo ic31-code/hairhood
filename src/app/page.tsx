@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { sanityFetch } from "../../sanity/lib/live";
 import { urlFor } from "../../sanity/lib/image";
@@ -15,7 +16,7 @@ import {
   type GalleryImage,
 } from "../../sanity/lib/queries";
 import { SiteFooter } from "../components/site-footer";
-import { Button, SectionHeading } from "../components/ui";
+import { Button, SectionHeading, ServiceRow } from "../components/ui";
 import { ReviewsCarousel, type Review } from "../components/reviews-carousel";
 import { getGoogleReviews } from "../lib/google-reviews";
 
@@ -83,7 +84,7 @@ export default async function Home() {
         {/* Team */}
         <section id="team" className="bg-[var(--hh-bone-050)] py-10">
           <div className="px-5">
-            <SectionHeading eyebrow="The chairs" title="Meet the team" action={{ label: "See all", href: "/about" }} />
+            <SectionHeading title="Meet the team" action={{ label: "See all", href: "/about" }} />
           </div>
           <div className="hh-scroll mt-5 flex gap-3 overflow-x-auto">
             <div className="shrink-0 basis-5" />
@@ -118,27 +119,16 @@ export default async function Home() {
         </section>
 
         {/* Prices */}
-        <section id="prices" className="bg-white py-10">
-          <div className="px-5">
-            <SectionHeading eyebrow="The menu" title="Cuts & prices" />
-          </div>
-          <div className="hh-scroll mt-5 flex gap-3 overflow-x-auto">
-            <div className="shrink-0 basis-5" />
+        <section id="prices" className="bg-white px-5 py-10">
+          <SectionHeading title="Cuts & prices" />
+          <div className="mt-4">
             {(services ?? []).map((s) => (
-              <div key={s._id} className="shrink-0 basis-[152px] border-t-2 border-[var(--hh-black)] pt-3.5">
-                <div className="hh-ui text-[11px] uppercase tracking-[.04em]" style={{ color: "var(--text-muted)" }}>
-                  From
-                </div>
-                <div className="hh-ui mt-0.5 text-[32px] tracking-[.01em]">{s.displayPrice}</div>
-                <div className="mt-2 text-sm leading-tight">{s.name}</div>
-                <div className="mt-1 text-xs" style={{ color: "var(--text-muted)" }}>
-                  {s.durationRange}
-                </div>
-              </div>
+              <Link key={s._id} href={`/book?service=${s._id}`} className="block">
+                <ServiceRow name={s.name} duration={s.durationRange} price={s.displayPrice} />
+              </Link>
             ))}
-            <div className="shrink-0 basis-2" />
           </div>
-          <div className="mt-5 px-5">
+          <div className="mt-5">
             <Button href="/services" variant="secondary" full>
               See full price list
             </Button>
@@ -148,7 +138,7 @@ export default async function Home() {
         {/* Work / Instagram */}
         <section id="insta" className="bg-[var(--hh-bone-050)] py-10">
           <div className="px-5">
-            <SectionHeading eyebrow="Follow along" title="The work" action={{ label: "See all", href: "/gallery" }} />
+            <SectionHeading title="The work" action={{ label: "See all", href: "/gallery" }} />
           </div>
           <div className="mt-4 grid grid-cols-3 gap-0.5 px-5">
             {Array.from({ length: GALLERY_TILES }).map((_, i) => {
@@ -172,10 +162,7 @@ export default async function Home() {
         {/* Reviews */}
         <section id="reviews" className="hh-inverse bg-black py-10">
           <div className="px-5">
-            <span className="hh-eyebrow" style={{ color: "var(--hh-ink-300)" }}>
-              What people say
-            </span>
-            <h2 className="hh-display mt-2 text-[clamp(30px,9vw,38px)] leading-[.9] uppercase text-white">
+            <h2 className="hh-display text-[clamp(30px,9vw,38px)] leading-[.9] uppercase text-white">
               From the chair
             </h2>
           </div>
@@ -185,8 +172,7 @@ export default async function Home() {
         {/* Visit */}
         <section id="visit" className="bg-[var(--surface-marble)] py-10">
           <div className="px-5">
-            <span className="hh-eyebrow">Find us</span>
-            <h2 className="hh-display mt-2 text-[clamp(30px,9vw,38px)] leading-[.9] uppercase text-[var(--hh-black)]">
+            <h2 className="hh-display text-[clamp(30px,9vw,38px)] leading-[.9] uppercase text-[var(--hh-black)]">
               Visit us
             </h2>
             <div className="mt-5 border-t-2 border-[var(--hh-black)] pt-4">

@@ -72,14 +72,12 @@ export function BackLink({ href, children }: { href: string; children: ReactNode
 }
 
 export function SectionHeading({
-  eyebrow,
   title,
   motto,
   lede,
   action,
   inverse,
 }: {
-  eyebrow?: string;
   title: string;
   motto?: string;
   lede?: string | null;
@@ -89,9 +87,8 @@ export function SectionHeading({
   return (
     <div className="flex items-baseline justify-between gap-3">
       <div>
-        {eyebrow && <span className="hh-eyebrow">{eyebrow}</span>}
         <h2
-          className={`hh-display mt-2 text-[clamp(30px,9vw,38px)] leading-[.9] uppercase ${inverse ? "text-white" : "text-[var(--hh-black)]"}`}
+          className={`hh-display text-[clamp(30px,9vw,38px)] leading-[.9] uppercase ${inverse ? "text-white" : "text-[var(--hh-black)]"}`}
         >
           {title}
         </h2>

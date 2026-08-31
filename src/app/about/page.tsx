@@ -44,7 +44,6 @@ export default async function AboutPage() {
       </section>
 
       <section className="bg-[var(--hh-bone-050)] px-5 pt-7 pb-12">
-        <span className="hh-eyebrow">A word from Amir</span>
         {paragraphs.map((p, i) => (
           <p key={i} className="mt-4 text-[15px] leading-relaxed" style={{ color: "var(--text-body)" }}>
             {p}
@@ -75,8 +74,7 @@ export default async function AboutPage() {
       </section>
 
       <section id="team-section" className="bg-[var(--surface-marble)] px-5 pt-9 pb-11">
-        <span className="hh-eyebrow">The chairs</span>
-        <h2 className="hh-display mt-2 text-[clamp(32px,10vw,42px)] leading-[.9] uppercase text-[var(--hh-black)]">
+        <h2 className="hh-display text-[clamp(32px,10vw,42px)] leading-[.9] uppercase text-[var(--hh-black)]">
           Meet the team
         </h2>
         <div className="hh-script mt-2 text-[clamp(22px,6vw,28px)] text-[var(--hh-black)]">

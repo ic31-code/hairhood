@@ -28,8 +28,7 @@ export default async function ServicesPage() {
     <main>
       <section className="hh-inverse bg-black px-5 pt-7 pb-8">
         <BackLink href="/">← Home</BackLink>
-        <span className="hh-eyebrow mt-4 block">The menu</span>
-        <h1 className="hh-display mt-2 text-[clamp(40px,12vw,56px)] leading-[.88] uppercase text-white">
+        <h1 className="hh-display mt-4 text-[clamp(40px,12vw,56px)] leading-[.88] uppercase text-white">
           Cuts &amp; prices
         </h1>
       </section>
