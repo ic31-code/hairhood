@@ -148,6 +148,17 @@ export function ServiceRow({
   return <div className={rowClassName}>{content}</div>;
 }
 
+export function LegalSection({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="border-t border-[var(--border-hairline,rgba(0,0,0,.12))] py-5">
+      <h2 className="hh-ui text-[13px] uppercase tracking-[.02em] text-[var(--hh-black)]">{title}</h2>
+      <div className="mt-2.5 text-sm leading-relaxed" style={{ color: "var(--text-body)" }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export function Tag({
   selected,
   onClick,

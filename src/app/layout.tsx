@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 import { SanityLive } from "../../sanity/lib/live";
 import { SiteHeader } from "../components/site-header";
+import { SiteFooter } from "../components/site-footer";
 import { StickyBookBar } from "../components/sticky-book-bar";
 
 const archivo = Archivo({
@@ -41,6 +43,8 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+const cookieYesId = process.env.NEXT_PUBLIC_COOKIEYES_ID;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -48,8 +52,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${archivo.variable} ${franchise.variable} ${bungee.variable} ${richardsonScript.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/*
+          CookieYes owns consent, script-blocking, and the banner UI once the account exists —
+          set NEXT_PUBLIC_COOKIEYES_ID to switch it on. GA4 / Google Ads tags aren't in this
+          codebase yet; add them behind CookieYes's own gating when they land, not before.
+        */}
+        {cookieYesId && (
+          <Script
+            id="cookieyes"
+            strategy="beforeInteractive"
+            src={`https://cdn-cookieyes.com/client_data/${cookieYesId}/script.js`}
+          />
+        )}
         <SiteHeader />
         {children}
+        <SiteFooter />
         <StickyBookBar />
         <SanityLive />
       </body>

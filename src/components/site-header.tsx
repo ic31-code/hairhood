@@ -2,16 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
-const NAV = [
-  { label: "Home", href: "/" },
-  { label: "About & team", href: "/about" },
-  { label: "Cuts & prices", href: "/services" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Reviews", href: "/#reviews" },
-  { label: "Visit us", href: "/#visit" },
-  { label: "Contact & FAQ", href: "/contact" },
-];
+import { NAV } from "../lib/nav";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);

@@ -7,43 +7,28 @@ import {
   SITE_SETTINGS_QUERY,
   FEATURED_SERVICES_QUERY,
   TEAM_QUERY,
-  TESTIMONIALS_QUERY,
   GALLERY_IMAGES_QUERY,
   type SiteSettings,
   type FeaturedService,
   type TeamMember,
-  type Testimonial,
   type GalleryImage,
 } from "../../sanity/lib/queries";
-import { SiteFooter } from "../components/site-footer";
 import { Button, SectionHeading, ServiceRow } from "../components/ui";
-import { ReviewsCarousel, type Review } from "../components/reviews-carousel";
-import { getGoogleReviews } from "../lib/google-reviews";
 
 const GALLERY_TILES = 6;
 
 export default async function Home() {
-  const [{ data: settings }, { data: services }, { data: team }, { data: testimonials }, { data: gallery }, googleReviews] =
-    (await Promise.all([
-      sanityFetch({ query: SITE_SETTINGS_QUERY }),
-      sanityFetch({ query: FEATURED_SERVICES_QUERY }),
-      sanityFetch({ query: TEAM_QUERY }),
-      sanityFetch({ query: TESTIMONIALS_QUERY }),
-      sanityFetch({ query: GALLERY_IMAGES_QUERY }),
-      getGoogleReviews(),
-    ])) as [
-      { data: SiteSettings | null },
-      { data: FeaturedService[] },
-      { data: TeamMember[] },
-      { data: Testimonial[] },
-      { data: GalleryImage[] },
-      Awaited<ReturnType<typeof getGoogleReviews>>,
-    ];
-
-  const reviews: Review[] =
-    googleReviews.length > 0
-      ? googleReviews.map((r) => ({ _id: r.id, quote: r.quote, author: r.author, rating: r.rating }))
-      : (testimonials ?? []).map((t) => ({ _id: t._id, quote: t.quote, author: t.author }));
+  const [{ data: settings }, { data: services }, { data: team }, { data: gallery }] = await Promise.all([
+    sanityFetch({ query: SITE_SETTINGS_QUERY }),
+    sanityFetch({ query: FEATURED_SERVICES_QUERY }),
+    sanityFetch({ query: TEAM_QUERY }),
+    sanityFetch({ query: GALLERY_IMAGES_QUERY }),
+  ]) as [
+    { data: SiteSettings | null },
+    { data: FeaturedService[] },
+    { data: TeamMember[] },
+    { data: GalleryImage[] },
+  ];
 
   const heroImageUrl = settings?.heroImage
     ? urlFor(settings.heroImage).width(1000).height(1250).url()
@@ -159,16 +144,6 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Reviews */}
-        <section id="reviews" className="hh-inverse bg-black py-10">
-          <div className="px-5">
-            <h2 className="hh-display text-[clamp(30px,9vw,38px)] leading-[.9] uppercase text-white">
-              Reviews
-            </h2>
-          </div>
-          <ReviewsCarousel reviews={reviews ?? []} />
-        </section>
-
         {/* Visit */}
         <section id="visit" className="bg-[var(--surface-marble)] py-10">
           <div className="px-5">
@@ -214,7 +189,6 @@ export default async function Home() {
           </div>
         </section>
       </main>
-      <SiteFooter />
     </>
   );
 }

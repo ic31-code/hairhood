@@ -90,6 +90,12 @@ export const siteSettings = defineType({
       type: 'url',
     }),
     defineField({
+      name: 'whatsappUrl',
+      title: 'WhatsApp URL',
+      type: 'url',
+      description: 'Full click-to-chat link, e.g. "https://wa.me/447123456789"',
+    }),
+    defineField({
       name: 'hours',
       title: 'Opening hours',
       type: 'array',

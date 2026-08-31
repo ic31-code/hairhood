@@ -2,19 +2,39 @@ import Image from "next/image";
 
 import { sanityFetch } from "../../../sanity/lib/live";
 import { urlFor } from "../../../sanity/lib/image";
-import { GALLERY_IMAGES_QUERY, SITE_SETTINGS_QUERY, type GalleryImage, type SiteSettings } from "../../../sanity/lib/queries";
+import {
+  GALLERY_IMAGES_QUERY,
+  SITE_SETTINGS_QUERY,
+  TESTIMONIALS_QUERY,
+  type GalleryImage,
+  type SiteSettings,
+  type Testimonial,
+} from "../../../sanity/lib/queries";
 import { BackLink } from "../../components/ui";
+import { ReviewsCarousel, type Review } from "../../components/reviews-carousel";
+import { getGoogleReviews } from "../../lib/google-reviews";
 
 const MIN_TILES = 9;
 
 export default async function GalleryPage() {
-  const [{ data: gallery }, { data: settings }] = (await Promise.all([
+  const [{ data: gallery }, { data: settings }, { data: testimonials }, googleReviews] = (await Promise.all([
     sanityFetch({ query: GALLERY_IMAGES_QUERY }),
     sanityFetch({ query: SITE_SETTINGS_QUERY }),
-  ])) as [{ data: GalleryImage[] }, { data: SiteSettings | null }];
+    sanityFetch({ query: TESTIMONIALS_QUERY }),
+    getGoogleReviews(),
+  ])) as [
+    { data: GalleryImage[] },
+    { data: SiteSettings | null },
+    { data: Testimonial[] },
+    Awaited<ReturnType<typeof getGoogleReviews>>,
+  ];
 
   const images = gallery ?? [];
   const placeholderCount = Math.max(0, MIN_TILES - images.length);
+  const reviews: Review[] =
+    googleReviews.length > 0
+      ? googleReviews.map((r) => ({ _id: r.id, quote: r.quote, author: r.author, rating: r.rating }))
+      : (testimonials ?? []).map((t) => ({ _id: t._id, quote: t.quote, author: t.author }));
 
   return (
     <main>
@@ -36,7 +56,7 @@ export default async function GalleryPage() {
           </a>
         )}
       </section>
-      <section className="bg-black pb-16">
+      <section className="bg-black pb-12">
         <div className="grid grid-cols-3 gap-0.5 px-5">
           {images.map((item) => (
             <div key={item._id} className="relative aspect-square overflow-hidden">
@@ -57,6 +77,14 @@ export default async function GalleryPage() {
             Grey tiles are placeholders — send us the shoot and they drop straight in.
           </p>
         )}
+      </section>
+      <section id="reviews" className="hh-inverse bg-black pb-16">
+        <div className="px-5">
+          <h2 className="hh-display text-[clamp(30px,9vw,38px)] leading-[.9] uppercase text-white">
+            Reviews
+          </h2>
+        </div>
+        <ReviewsCarousel reviews={reviews} />
       </section>
     </main>
   );

@@ -28,6 +28,7 @@ export type SiteSettings = {
   email?: string | null;
   instagramHandle?: string | null;
   instagramUrl?: string | null;
+  whatsappUrl?: string | null;
   hours?: DayHours[] | null;
 };
 
@@ -47,6 +48,7 @@ export const SITE_SETTINGS_QUERY = defineQuery(`
     email,
     instagramHandle,
     instagramUrl,
+    whatsappUrl,
     hours[]{ day, closed, openTime, closeTime }
   }
 `);

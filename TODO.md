@@ -14,10 +14,12 @@ Local checklist derived from the Notion spec ("HairHood — Site Architecture Sp
 - [x] Homepage section titles: "From the chair" → "Reviews", "The work" → "Gallery" (`app/page.tsx`)
 - [x] Removed "know your barber" script line from Meet the Team on `/about`
 - [x] Sticky bottom "Book Now" button flipped to a black box with white lettering (was white box, black lettering) (`sticky-book-bar.tsx`)
-- [ ] Combine Gallery + Reviews into one page (drop standalone `/gallery` page and the homepage reviews carousel)
-- [ ] Add Instagram + WhatsApp links wherever contact info is shown (header/footer/visit-us block)
-- [ ] Remove the displayed email address entirely
-- [ ] Remove the repeated "Book Now" CTA at the bottom of every page (redundant with the persistent sticky bar / desktop button)
+- [x] Combined Gallery + Reviews into one page — `/gallery` now has the photo grid plus a Reviews section (same testimonials/Google-reviews data + `ReviewsCarousel` component previously on the homepage) below it. Removed the standalone Reviews section from the homepage (`app/page.tsx`) entirely; homepage keeps its own Gallery photo-teaser section unchanged, still linking "See all" to `/gallery`. Nav's "Reviews" link now points to `/gallery#reviews` instead of `/#reviews`.
+- [x] Rebuilt the footer (`site-footer.tsx`) per the footer + legal pages master prompt — 3-column layout (brand/social, booking links, site nav mirroring the header exactly via a shared `lib/nav.ts`), bottom bar with Privacy/Cookie/Booking Terms links + copyright, no repeated Book Now CTA. Mounted globally in `layout.tsx` (was homepage-only before).
+- [x] Added Instagram + WhatsApp links to the footer (new `whatsappUrl` field on `siteSettings` — populate in Studio to show the link; `instagramUrl` already existed)
+- [x] Removed the displayed email address entirely (was on `/contact`; also never shown in the new footer)
+- [x] Added `/privacy`, `/cookies`, `/booking-terms` pages. Privacy Policy pulls the real address/phone from Sanity settings; rights-request contact is phone-only (no email, per above). Booking Terms: cancellations are notice-only for now (24h, no charge), late-arrival clause has no fixed minute threshold (decided against one). Cookie Policy + `layout.tsx` have a CookieYes scaffold (`NEXT_PUBLIC_COOKIEYES_ID` env var) — inert until a real CookieYes account/site ID exists; GA4 + Google Ads tags aren't in the codebase yet so there's nothing to gate yet.
+- [ ] Remove the repeated "Book Now" CTA at the bottom of every page (redundant with the persistent sticky bar / desktop button) — left `/about`'s bottom button alone since it's the page's only non-per-barber CTA (its own sticky bar is already suppressed for this exact reason); revisit as a deliberate call, not a leftover
 - [ ] Desktop: cap section max-heights (fix oversized/overlong sections)
 - [ ] Desktop: add a "Book Now" button fixed top-right at all times (desktop counterpart to the mobile sticky bottom bar)
 

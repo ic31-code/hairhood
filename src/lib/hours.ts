@@ -5,6 +5,26 @@ type DayHours = {
   closeTime?: string | null;
 };
 
+function londonWeekday(): string | undefined {
+  return new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/London",
+    weekday: "long",
+  }).format(new Date());
+}
+
+export function todayHours(hours: DayHours[] | null | undefined): { day: string; label: string } | null {
+  if (!hours?.length) return null;
+
+  const weekday = londonWeekday();
+  const today = hours.find((h) => h.day === weekday);
+  if (!today) return null;
+
+  return {
+    day: today.day,
+    label: today.closed || !today.openTime || !today.closeTime ? "Closed today" : `${today.openTime} – ${today.closeTime}`,
+  };
+}
+
 export function isOpenNow(hours: DayHours[] | null | undefined): boolean {
   if (!hours?.length) return false;
 

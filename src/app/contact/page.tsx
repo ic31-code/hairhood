@@ -24,11 +24,6 @@ export default async function ContactPage() {
               {settings.phone}
             </a>
           )}
-          {settings?.email && (
-            <a href={`mailto:${settings.email}`} className="hh-ui text-sm tracking-[.02em] text-[var(--hh-black)]">
-              {settings.email}
-            </a>
-          )}
           <span className="mt-1 text-sm leading-relaxed" style={{ color: "var(--text-body)" }}>
             {settings?.addressLine1}, {settings?.addressLine2}
           </span>
