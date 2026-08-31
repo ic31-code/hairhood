@@ -109,7 +109,7 @@ export default async function AboutPage() {
                   </div>
                   <div className="mt-2.5">
                     <Button href={`/book?barber=${b._id}`} size="sm">
-                      Book Now
+                      Book with {b.name}
                     </Button>
                   </div>
                 </div>

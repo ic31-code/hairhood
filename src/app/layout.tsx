@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -33,6 +33,12 @@ export const metadata: Metadata = {
   title: "Hair Hood — Barbershop, Whiteladies Road, Bristol",
   description:
     "Sharp, every time. Hair Hood is a barbershop on Whiteladies Road, Clifton, Bristol — cuts, fades, beards and hot towel shaves.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
