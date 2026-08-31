@@ -77,9 +77,6 @@ export default async function AboutPage() {
         <h2 className="hh-display text-[clamp(32px,10vw,42px)] leading-[.9] uppercase text-[var(--hh-black)]">
           Meet the team
         </h2>
-        <div className="hh-script mt-2 text-[clamp(22px,6vw,28px)] text-[var(--hh-black)]">
-          know your barber
-        </div>
         <div className="mt-6 flex flex-col gap-4">
           {(team ?? []).map((b) => {
             const photoUrl = b.photo ? urlFor(b.photo).width(176).height(208).url() : null;

@@ -138,7 +138,7 @@ export default async function Home() {
         {/* Work / Instagram */}
         <section id="insta" className="bg-[var(--hh-bone-050)] py-10">
           <div className="px-5">
-            <SectionHeading title="The work" action={{ label: "See all", href: "/gallery" }} />
+            <SectionHeading title="Gallery" action={{ label: "See all", href: "/gallery" }} />
           </div>
           <div className="mt-4 grid grid-cols-3 gap-0.5 px-5">
             {Array.from({ length: GALLERY_TILES }).map((_, i) => {
@@ -163,7 +163,7 @@ export default async function Home() {
         <section id="reviews" className="hh-inverse bg-black py-10">
           <div className="px-5">
             <h2 className="hh-display text-[clamp(30px,9vw,38px)] leading-[.9] uppercase text-white">
-              From the chair
+              Reviews
             </h2>
           </div>
           <ReviewsCarousel reviews={reviews ?? []} />

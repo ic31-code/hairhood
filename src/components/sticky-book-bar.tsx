@@ -12,7 +12,7 @@ export function StickyBookBar() {
       <div className="fixed inset-x-0 bottom-0 z-[70] px-4 pt-2.5 pb-[calc(10px+env(safe-area-inset-bottom))]">
         <Link
           href="/book"
-          className="hh-ui flex h-[46px] w-full items-center justify-center bg-white text-[13px] tracking-[.02em] uppercase text-black"
+          className="hh-ui flex h-[46px] w-full items-center justify-center bg-black text-[13px] tracking-[.02em] uppercase text-white"
         >
           Book Now
         </Link>
